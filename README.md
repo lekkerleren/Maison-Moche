@@ -2,7 +2,7 @@
 
 > *"Objects of questionable necessity, presented with absolute conviction."*
 
-Maison Moche is a full-stack e-commerce platform built from scratch as a portfolio project. The store's fictional brand sells cursed French home goods with the seriousness of a museum retrospective. The codebase solves the real problems that platforms like Shopify abstract away — inventory reservation, supplier feed ingestion, JWT auth, and a decoupled REST + React architecture.
+Maison Moche is a full-stack e-commerce platform built from scratch as a portfolio project. The store's fictional brand sells cursed home goods with the sincerity of a luxury design brand. It's visual language evokes heraldry, craftsmanship and upmarket pretentiousness. The codebase solves the real problems that platforms like Shopify abstract away — inventory reservation, supplier feed ingestion, JWT auth, and a decoupled REST + React architecture.
 
 **Status:** Phase 1 complete (environment + Django/PostgreSQL connected). Phase 2 in progress (data models).
 
@@ -192,4 +192,4 @@ DEBUG=True
 
 ## Background
 
-This project exists because e-commerce operations work — configuring Shopify, ChannelEngine, ContentServ, managing supplier feeds, onboarding vendors — gave me a deep understanding of how these systems work from the outside. This is the exercise of building one from the inside: implementing the things those platforms abstract away, and understanding why they work the way they do.
+This project exists because e-commerce operations work — configuring Shopify, ChannelEngine, ContentServ, managing supplier feeds, onboarding vendors — gave me an understanding of how these systems work from the outside. This is the exercise of building one from the inside: implementing the things those platforms abstract away, and understanding why they work the way they do.
