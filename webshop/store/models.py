@@ -18,7 +18,6 @@ class Category(models.Model): # top level category model
     
 class Product(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='products') # points to Category model
-    name = models.CharField(max_length=100)
     handle = models.SlugField(max_length=100, unique=True)
     product_title = models.CharField(max_length=140)
     description = models.TextField()
@@ -30,12 +29,11 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.product_title
     
 
 class Variant(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants') # points to Product model
-    name = models.CharField(max_length=100)
     handle = models.SlugField(max_length=100, unique=True)
     variant_title = models.CharField(max_length=140)
     primary_material = models.CharField(max_length=100)
@@ -55,7 +53,7 @@ class Variant(models.Model):
     currency = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.name    
+        return self.variant_title    
 
 class VariantImage(models.Model):
     variant = models.ForeignKey(Variant, null=True, blank=True, on_delete=models.SET_NULL, related_name='variant_images') # points to Variant model
