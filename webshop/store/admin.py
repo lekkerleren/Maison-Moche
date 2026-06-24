@@ -1,7 +1,7 @@
 from django.contrib import admin
-
-from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
+    User,
     Category,
     Product,
     Variant,
@@ -14,6 +14,9 @@ from .models import (
     DecorativeAttribute,
 )
 
+class CustomUserAdmin(BaseUserAdmin):
+    ordering = ('email',)
+
 admin.site.register(Category)
 admin.site.register(Product)
 admin.site.register(Variant)
@@ -24,4 +27,5 @@ admin.site.register(TableAttribute)
 admin.site.register(LightingAttribute)
 admin.site.register(SeatingAttribute)
 admin.site.register(DecorativeAttribute)
+admin.site.register(User, CustomUserAdmin)
 
