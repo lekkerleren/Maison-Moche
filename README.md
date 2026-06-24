@@ -4,9 +4,9 @@ E-commerce platform built from scratch. Django REST API backend, PostgreSQL data
 
 Built as a portfolio project — the goal is to improve my understanding of core IT concepts and full stack development
 
-Maison Moche is a fictional Home & Living brand that sells dubious items with the sincerity and presentation of a luxury design brand.
-Their branding evokes prestige and craftsmanship, their presentation borrows from heraldic imagery and french aesthetics.
-The products they sell certainly look the part. Until you take a closer look that is.
+Maison Moche is a fictional Home & Living brand that sells dubious items with the sincerity a luxury design brand.
+Their branding evokes prestige and craftsmanship, their presentation borrows from heraldic imagery and parisian aesthetics.
+Their products certainly look the part, until you take a closer look that is.
 
 ## Stack
 
