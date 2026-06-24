@@ -1,4 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+class User(AbstractUser):
+    username =  None # username is not required
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    is_admin = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
 
 class Category(models.Model): # top level category model
     name = models.CharField(max_length=100)
@@ -16,13 +27,33 @@ class Category(models.Model): # top level category model
     def __str__(self):
         return self.name
     
+class Supplier(models.Model):
+    supplier_name = models.CharField(max_length=100)
+    supplier_email = models.EmailField(max_length=100)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    address = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.supplier_name
+    
+class Brand(models.Model):
+    brand_name = models.CharField(max_length=100)
+    brand_description = models.TextField()
+    
+    def __str__(self):
+        return self.brand_name
+    
 class Product(models.Model):
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='products') # points to Category model
     handle = models.SlugField(max_length=100, unique=True)
     product_title = models.CharField(max_length=140)
     description = models.TextField()
-    supplier = models.CharField(max_length=100)
-    brand = models.CharField(max_length=100)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, related_name='products') # points to Supplier model
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='products') # points to Brand model
     style = models.CharField(max_length=100, null=True, blank=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -121,4 +152,3 @@ class DecorativeAttribute(models.Model):
 
     def __str__(self):
         return f"Decorative attributes for variant {self.variant_id}"
-
