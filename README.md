@@ -32,7 +32,7 @@ Their products certainly look the part, until you take a closer look that is.
 ## Run locally
 
 ```bash
-git clone https://github.com/LekkerLeren/Maison-Moche
+git clone https://github.com/lekkerleren/Maison-Moche
 cd Maison-Moche
 pip install -r requirements.txt
 # add .env with DB credentials
