@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import (
     User,
     Category,
+    Supplier,
+    Brand,
     Product,
     Variant,
     VariantImage,
@@ -28,4 +30,6 @@ admin.site.register(LightingAttribute)
 admin.site.register(SeatingAttribute)
 admin.site.register(DecorativeAttribute)
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Supplier)
+admin.site.register(Brand)
 

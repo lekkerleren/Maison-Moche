@@ -80,6 +80,7 @@ class Product(models.Model):
     
 
 class Variant(models.Model):
+    active = models.BooleanField(default=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants') # points to Product model
     handle = models.SlugField(max_length=100, unique=True)
     variant_title = models.CharField(max_length=140)
@@ -92,7 +93,7 @@ class Variant(models.Model):
     depth = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     height = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     diameter = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    total_weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    total_weight = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     number_of_packages = models.IntegerField()
     stock_quantity = models.IntegerField()
     stock_location = models.CharField(max_length=100)
@@ -168,3 +169,7 @@ class DecorativeAttribute(models.Model):
 
     def __str__(self):
         return f"Decorative attributes for variant {self.variant_id}"
+    
+
+# TODO: add model for undercarriage data
+# TODO: write serializers
