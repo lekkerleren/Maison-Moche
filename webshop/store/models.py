@@ -63,6 +63,7 @@ class Brand(models.Model):
     def __str__(self):
         return self.brand_name
     
+    
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products') # points to Category model
     handle = models.SlugField(max_length=100, unique=True)
@@ -78,6 +79,14 @@ class Product(models.Model):
     def __str__(self):
         return self.product_title
     
+class Collection(models.Model):
+    name = models.CharField(max_length=100)
+    handle = models.SlugField(max_length=100, unique=True)
+    description = models.TextField()
+    products = models.ManyToManyField(Product, related_name='collections', blank=True) # many-to-many relationship with Product model
+
+    def __str__(self):
+        return self.name
 
 class Variant(models.Model):
     active = models.BooleanField(default=True)
@@ -99,6 +108,7 @@ class Variant(models.Model):
     stock_location = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     currency = models.CharField(max_length=3)
+    collections = models.ManyToManyField(Collection, related_name='variants', blank=True) # many-to-many relationship with Collection model
 
     def __str__(self):
         return self.variant_title    
@@ -123,14 +133,6 @@ class VariantShipping(models.Model):
     def __str__(self):
         return f"Shipping for variant {self.variant_id}"
     
-class Collection(models.Model):
-    name = models.CharField(max_length=100)
-    handle = models.SlugField(max_length=100, unique=True)
-    description = models.TextField()
-    products = models.ManyToManyField(Product, related_name='collections', blank=True) # many-to-many relationship with Product model
-
-    def __str__(self):
-        return self.name
     
 class TableAttribute(models.Model):
     variant = models.OneToOneField(Variant, on_delete=models.CASCADE, related_name='table_attributes') # points to Product model
