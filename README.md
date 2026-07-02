@@ -19,8 +19,8 @@ Their products certainly look the part, until you take a closer look that is.
 ## Status
 
 - [x] Data models — products, variants, categories, suppliers, brands, collections
-- [ ] Custom user model + JWT auth setup (in progress)
-- [ ] Product catalog API
+- [x] Custom user model + JWT auth setup (in progress)
+- [x] Product catalog API
 - [ ] Cart & checkout
 - [ ] Supplier feed ingestion (CSV)
 - [ ] Frontend

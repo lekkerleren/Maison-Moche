@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'store',  # add the store app to the installed apps
+    'rest_framework',
+    'rest_framework_simplejwt', 
 ]
 
 MIDDLEWARE = [
@@ -57,12 +59,20 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            r'C:\Users\Micha\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\rest_framework\templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
