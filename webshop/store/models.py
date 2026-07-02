@@ -21,7 +21,8 @@ class User(AbstractUser):
     username =  None 
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -42,8 +43,9 @@ class Category(models.Model): # top level category model
 
     def __str__(self):
         return self.name
-    
+        
 class Supplier(models.Model):
+    handle = models.SlugField(max_length=100, unique=True, null=True)
     supplier_name = models.CharField(max_length=100)
     supplier_email = models.EmailField(max_length=100)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
@@ -57,6 +59,7 @@ class Supplier(models.Model):
         return self.supplier_name
     
 class Brand(models.Model):
+    handle = models.SlugField(max_length=100, unique=True, null=True)    
     brand_name = models.CharField(max_length=100)
     brand_description = models.TextField()
     

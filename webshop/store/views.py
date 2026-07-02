@@ -1,9 +1,12 @@
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 from rest_framework import status
-from .serializers import RegisterSerializer, LoginSerializer, VariantListSerializer, VariantDetailSerializer
+from .serializers import AdminVariantSerializer, RegisterSerializer, LoginSerializer, VariantListSerializer, VariantDetailSerializer
 from .models import User, Variant, Category
 from rest_framework_simplejwt.tokens import RefreshToken
+from .pagination import StandardPagination
 
 # Create your views here.
 
@@ -47,10 +50,20 @@ class VariantListView(APIView):
 
         brand = request.query_params.get('brand')
         if brand:
-            queryset = queryset.filter(product__brand__brand_name=brand)
+            queryset = queryset.filter(product__brand__handle=brand)
 
-        serializer = VariantListSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        sort = request.query_params.get('sort')
+        if sort == 'price_asc':
+            queryset = queryset.order_by('price')
+        elif sort == 'price_desc':
+            queryset = queryset.order_by('-price')
+        elif sort == 'newest':
+            queryset = queryset.order_by('-product__created_at')
+
+        paginator = StandardPagination()
+        paginated_queryset = paginator.paginate_queryset(queryset, request)
+        serializer = VariantListSerializer(paginated_queryset, many=True)
+        return paginator.get_paginated_response(serializer.data)
     
 class VariantDetailView(APIView):
   
@@ -60,3 +73,17 @@ class VariantDetailView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)         
         except Variant.DoesNotExist:
             return Response({"error": "variant not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class AdminVariantViewset(ModelViewSet):
+
+    def get_queryset(self):
+        queryset = Variant.objects.all()
+        active = self.request.query_params.get('active')
+        if active:
+            queryset = queryset.filter(active=True)
+        return queryset
+
+    serializer_class = AdminVariantSerializer
+    permission_classes = [IsAdminUser]  # Only admin users can access this viewset
+    

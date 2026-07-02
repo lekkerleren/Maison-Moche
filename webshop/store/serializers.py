@@ -50,10 +50,18 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         fields = ('brand_name', 'brand_description')
 
+class SupplierSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Supplier
+        fields = ('supplier_name',)
+
 class ProductSerializer(serializers.ModelSerializer):
+    brand = BrandSerializer(many=False)
+    supplier = SupplierSerializer(many=False)
+    
     class Meta:
         model = Product
-        fields = ('product_title', 'description', 'category', 'handle', 'brand', 'style', 'active', 'created_at', 'updated_at')
+        fields = ('product_title', 'description', 'category', 'handle', 'supplier', 'brand', 'style', 'active', 'created_at', 'updated_at')
     
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -99,3 +107,7 @@ class VariantDetailSerializer(serializers.ModelSerializer): #serializer for pdp 
         fields = ('variant_title', 'price', 'handle', 'product', 'variant_image', 'collection', 'table_attribute', 'lighting_attribute', 'seating_attribute')
 
 
+class AdminVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Variant
+        fields = '__all__'
